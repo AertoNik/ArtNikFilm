@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Warden | ArtNikFilm</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class', 
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Space Grotesk"', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    },
+                    colors: {
+                        darkBg: '#0a0a0a',
+                        lightBg: '#f8f9fa'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { transition: background-color 0.5s ease, color 0.5s ease; }
+        ::selection { background-color: #dc2626; color: white; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+    </style>
+</head>
+<body class="bg-lightBg text-black dark:bg-darkBg dark:text-white min-h-screen antialiased flex flex-col">
+
+    <nav class="w-full px-8 py-5 flex justify-between items-center z-50 bg-lightBg dark:bg-darkBg border-b border-gray-200 dark:border-white/10 transition-colors duration-500">
+        <a href="index.html" class="text-2xl font-bold tracking-[0.2em] uppercase cursor-pointer hover:text-red-600 transition-colors">
+            ArtNikFilm
+        </a>
+        
+        <div class="hidden md:flex items-center space-x-10 text-sm tracking-widest uppercase font-semibold">
+            <a href="index.html" class="hover:text-red-600 transition-colors">Back to Catalog</a>
+            <button id="themeToggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-white/10 transition-colors">
+                <svg id="moonIcon" class="hidden w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                <svg id="sunIcon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+            </button>
+        </div>
+    </nav>
+
+    <section class="w-full max-w-screen-2xl mx-auto px-4 md:px-8 mt-8">
+        <div class="w-full aspect-video bg-gray-300 dark:bg-[#111] relative border border-gray-300 dark:border-white/10 flex items-center justify-center overflow-hidden shadow-2xl">
+            <div class="absolute inset-0 bg-black/40 z-10 flex flex-col items-center justify-center">
+                <div class="w-20 h-20 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center pl-2 cursor-pointer hover:bg-red-600 hover:scale-110 transition-all duration-300">
+                    <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+                <span class="mt-4 font-mono text-sm tracking-widest text-white/50 uppercase">Video Signal Offline</span>
+            </div>
+            <img src="" class="absolute inset-0 w-full h-full object-cover z-0 opacity-50" alt="Player Background">
+        </div>
+    </section>
+
+    <section class="w-full max-w-screen-2xl mx-auto px-4 md:px-8 py-12 grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-24 flex-grow">
+        
+        <div class="lg:col-span-2 space-y-8">
+            <div>
+                <div class="flex items-center gap-4 text-xs font-mono tracking-[0.2em] text-red-600 uppercase mb-4">
+                    <span>Sci-Fi / Thriller</span>
+                    <span class="text-gray-500">•</span>
+                    <span>File // 05:07</span>
+                    <span class="text-gray-500">•</span>
+                    <span>4K / Atmos</span>
+                </div>
+                <h1 class="text-5xl md:text-7xl font-black uppercase tracking-tighter mb-6 leading-none text-black dark:text-white">
+                    The Warden
+                </h1>
+                <p class="text-gray-600 dark:text-gray-400 text-lg md:text-xl font-light leading-relaxed tracking-wide">
+                    A surveillance odyssey into the heart of an automated disciplinary sector. Experience the ultimate control through the eyes of the AI Warden. Control is an illusion, but the consequences are entirely real. What happens when the system watching you decides you are the anomaly?
+                </p>
+            </div>
+
+            <div class="flex items-center gap-4 pt-8 border-t border-gray-300 dark:border-white/10">
+                
+                <button id="likeBtn" class="group flex items-center gap-3 px-8 py-4 border border-black dark:border-white text-black dark:text-white hover:border-red-600 transition-all duration-300">
+                    <svg id="likeIcon" class="w-6 h-6 transition-transform group-active:scale-75" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5"></path>
+                    </svg>
+                    <span class="font-bold uppercase tracking-widest text-sm">
+                        <span id="likeCountText">8500</span>
+                    </span>
+                </button>
+
+                <button id="dislikeBtn" class="group flex items-center gap-3 px-6 py-4 border border-black/20 dark:border-white/20 text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white hover:border-black dark:hover:border-white transition-all duration-300">
+                    <svg id="dislikeIcon" class="w-6 h-6 transition-transform group-active:scale-75" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14H5.236a2 2 0 01-1.789-2.894l3.5-7A2 2 0 018.736 3h4.018a2 2 0 01.485.06l3.76.94m-7 10v5a2 2 0 002 2h.096c.5 0 .905-.405.905-.904 0-.715.211-1.413.608-2.008L17 13V4m-7 10h2m5-10h2a2 2 0 012 2v6a2 2 0 01-2 2h-2.5"></path>
+                    </svg>
+                    <span class="font-bold uppercase tracking-widest text-sm">
+                        <span id="dislikeCountText">124</span>
+                    </span>
+                </button>
+
+            </div>
+        </div>
+
+        <div class="lg:col-span-1 bg-gray-200/50 dark:bg-[#111] border border-gray-300 dark:border-white/10 p-6 flex flex-col max-h-[600px]">
+            <div class="flex justify-between items-center mb-6 border-b border-gray-300 dark:border-white/10 pb-4">
+                <h3 class="text-xl font-bold uppercase tracking-widest">Logs / Comm</h3>
+                <span class="font-mono text-xs text-gray-500" id="commentCount">0 Entries</span>
+            </div>
+
+            <div id="commentsList" class="flex-grow overflow-y-auto space-y-6 mb-6 pr-2">
+                </div>
+
+            <div class="mt-auto pt-4 border-t border-gray-300 dark:border-white/10">
+                <textarea id="commentInput" class="w-full bg-white dark:bg-[#0a0a0a] border border-gray-300 dark:border-white/20 p-4 text-sm font-mono focus:outline-none focus:border-red-600 dark:focus:border-red-600 transition-colors text-black dark:text-white resize-none" rows="3" placeholder="Enter log entry..."></textarea>
+                <button id="submitComment" class="mt-4 w-full bg-black text-white dark:bg-white dark:text-black py-3 font-bold uppercase tracking-widest text-sm hover:bg-red-600 hover:text-white dark:hover:bg-red-600 dark:hover:text-white transition-colors">
+                    Submit Entry
+                </button>
+            </div>
+        </div>
+
+    </section>
+
+    <script>
+        // 1. ТЕМА
+        const themeToggleBtn = document.getElementById('themeToggle');
+        const htmlElement = document.documentElement;
+        
+        function updateIcons() {
+            const isDark = htmlElement.classList.contains('dark');
+            document.getElementById('sunIcon').classList.toggle('hidden', !isDark);
+            document.getElementById('moonIcon').classList.toggle('hidden', isDark);
+        }
+        
+        themeToggleBtn.addEventListener('click', () => {
+            htmlElement.classList.toggle('dark');
+            updateIcons();
+        });
+        updateIcons();
+
+        // 2. ЛОГИКА ОЦЕНОК (Лайки и Дизлайки)
+        const filmId = 'warden';
+        
+        // Элементы Лайка
+        const likeBtn = document.getElementById('likeBtn');
+        const likeIcon = document.getElementById('likeIcon');
+        const likeCountText = document.getElementById('likeCountText');
+        
+        // Элементы Дизлайка
+        const dislikeBtn = document.getElementById('dislikeBtn');
+        const dislikeIcon = document.getElementById('dislikeIcon');
+        const dislikeCountText = document.getElementById('dislikeCountText');
+        
+        // Загрузка состояний
+        let currentLikes = parseInt(localStorage.getItem(`likes_${filmId}`)) || 8500;
+        let isLiked = localStorage.getItem(`isLiked_${filmId}`) === 'true';
+
+        let currentDislikes = parseInt(localStorage.getItem(`dislikes_${filmId}`)) || 124;
+        let isDisliked = localStorage.getItem(`isDisliked_${filmId}`) === 'true';
+
+        function updateRatingUI() {
+            likeCountText.innerText = currentLikes;
+            dislikeCountText.innerText = currentDislikes;
+
+            // Стилизация лайка
+            if (isLiked) {
+                likeIcon.setAttribute('fill', 'currentColor');
+                likeIcon.classList.add('text-red-600');
+                likeBtn.classList.add('border-red-600');
+            } else {
+                likeIcon.setAttribute('fill', 'none');
+                likeIcon.classList.remove('text-red-600');
+                likeBtn.classList.remove('border-red-600');
+            }
+
+            // Стилизация дизлайка
+            if (isDisliked) {
+                dislikeIcon.setAttribute('fill', 'currentColor');
+                dislikeBtn.classList.add('border-black', 'text-black', 'dark:border-white', 'dark:text-white');
+                dislikeBtn.classList.remove('border-black/20', 'text-gray-500', 'dark:border-white/20', 'dark:text-gray-400');
+            } else {
+                dislikeIcon.setAttribute('fill', 'none');
+                dislikeBtn.classList.remove('border-black', 'text-black', 'dark:border-white', 'dark:text-white');
+                dislikeBtn.classList.add('border-black/20', 'text-gray-500', 'dark:border-white/20', 'dark:text-gray-400');
+            }
+        }
+
+        function saveRatings() {
+            localStorage.setItem(`likes_${filmId}`, currentLikes);
+            localStorage.setItem(`isLiked_${filmId}`, isLiked);
+            localStorage.setItem(`dislikes_${filmId}`, currentDislikes);
+            localStorage.setItem(`isDisliked_${filmId}`, isDisliked);
+            updateRatingUI();
+        }
+
+        likeBtn.addEventListener('click', () => {
+            if (isLiked) {
+                // Если уже лайкнуто - снимаем лайк
+                currentLikes--;
+                isLiked = false;
+            } else {
+                // Ставим лайк
+                currentLikes++;
+                isLiked = true;
+                // Если стоял дизлайк - убираем его
+                if (isDisliked) {
+                    currentDislikes--;
+                    isDisliked = false;
+                }
+            }
+            saveRatings();
+        });
+
+        dislikeBtn.addEventListener('click', () => {
+            if (isDisliked) {
+                // Если уже дизлайкнуто - снимаем дизлайк
+                currentDislikes--;
+                isDisliked = false;
+            } else {
+                // Ставим дизлайк
+                currentDislikes++;
+                isDisliked = true;
+                // Если стоял лайк - убираем его
+                if (isLiked) {
+                    currentLikes--;
+                    isLiked = false;
+                }
+            }
+            saveRatings();
+        });
+        
+        updateRatingUI();
+
+        // 3. ЛОГИКА КОММЕНТАРИЕВ
+        const commentsList = document.getElementById('commentsList');
+        const commentInput = document.getElementById('commentInput');
+        const submitCommentBtn = document.getElementById('submitComment');
+        const commentCountText = document.getElementById('commentCount');
+
+        let comments = JSON.parse(localStorage.getItem(`comments_${filmId}`)) || [];
+
+        function renderComments() {
+            commentsList.innerHTML = '';
+            commentCountText.innerText = `${comments.length} Entries`;
+            
+            if (comments.length === 0) {
+                commentsList.innerHTML = '<div class="text-gray-500 font-mono text-sm text-center mt-10">No logs found. Be the first to enter data.</div>';
+                return;
+            }
+
+            comments.forEach(comment => {
+                const commentHTML = `
+                    <div class="border-l-2 border-red-600 pl-4 py-1">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="w-6 h-6 bg-gray-300 dark:bg-gray-800 rounded-full"></div>
+                            <span class="font-bold text-sm tracking-wide uppercase">Guest_User</span>
+                            <span class="font-mono text-[10px] text-gray-500">${comment.date}</span>
+                        </div>
+                        <p class="text-sm text-gray-700 dark:text-gray-300 font-mono leading-relaxed">
+                            ${comment.text}
+                        </p>
+                    </div>
+                `;
+                commentsList.insertAdjacentHTML('beforeend', commentHTML);
+            });
+            commentsList.scrollTop = commentsList.scrollHeight;
+        }
+
+        submitCommentBtn.addEventListener('click', () => {
+            const text = commentInput.value.trim();
+            if (text !== '') {
+                const newDate = new Date().toLocaleTimeString('en-US', { hour12: false, hour: "numeric", minute: "numeric" });
+                comments.push({ text: text, date: newDate });
+                
+                localStorage.setItem(`comments_${filmId}`, JSON.stringify(comments));
+                commentInput.value = '';
+                renderComments();
+            }
+        });
+
+        commentInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                submitCommentBtn.click();
+            }
+        });
+
+        renderComments();
+    </script>
+</body>
+</html>
