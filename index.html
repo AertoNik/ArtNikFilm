@@ -38,6 +38,16 @@
             background: linear-gradient(90deg, #dc2626 0%, #991b1b 100%);
         }
     </style>
+
+    <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+    <script>
+      window.OneSignalDeferred = window.OneSignalDeferred || [];
+      OneSignalDeferred.push(async function(OneSignal) {
+        await OneSignal.init({
+          appId: "f9205168-0f63-4649-b4f0-719adbea4626",
+        });
+      });
+    </script>
 </head>
 <body class="bg-lightBg text-black dark:bg-darkBg dark:text-white min-h-screen antialiased">
 

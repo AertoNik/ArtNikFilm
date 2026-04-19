@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Warden | ArtNikFilm</title>
+    <title>ArtNikFilm | Premium AI Cinema</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -33,7 +33,21 @@
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+        
+        .rating-badge {
+            background: linear-gradient(90deg, #dc2626 0%, #991b1b 100%);
+        }
     </style>
+
+    <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+    <script>
+      window.OneSignalDeferred = window.OneSignalDeferred || [];
+      OneSignalDeferred.push(async function(OneSignal) {
+        await OneSignal.init({
+          appId: "f9205168-0f63-4649-b4f0-719adbea4626",
+        });
+      });
+    </script>
 </head>
 <body class="bg-lightBg text-black dark:bg-darkBg dark:text-white min-h-screen antialiased flex flex-col">
 
