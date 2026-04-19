@@ -66,17 +66,20 @@
     </nav>
 
     <section class="w-full max-w-screen-2xl mx-auto px-4 md:px-8 mt-8">
-        <div class="w-full aspect-video bg-gray-300 dark:bg-[#111] relative border border-gray-300 dark:border-white/10 flex items-center justify-center overflow-hidden shadow-2xl">
-            <div class="absolute inset-0 bg-black/40 z-10 flex flex-col items-center justify-center">
-                <div class="w-20 h-20 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center pl-2 cursor-pointer hover:bg-red-600 hover:scale-110 transition-all duration-300">
-                    <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                </div>
-                <span class="mt-4 font-mono text-sm tracking-widest text-white/50 uppercase">Video Signal Offline</span>
-            </div>
-            <img src="" class="absolute inset-0 w-full h-full object-cover z-0 opacity-50" alt="Player Background">
+        <div class="w-full aspect-video bg-black relative border border-gray-300 dark:border-white/10 overflow-hidden shadow-2xl">
+            
+            <iframe 
+                class="absolute top-0 left-0 w-full h-full"
+                /* Вставь свой ID видео вместо слова ТВОЙ_ID_ВИДЕО */
+                src="https://youtu.be/HAWgLR-RgWg" 
+                title="The Warden" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                allowfullscreen>
+            </iframe>
+
         </div>
     </section>
-
     <section class="w-full max-w-screen-2xl mx-auto px-4 md:px-8 py-12 grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-24 flex-grow">
         
         <div class="lg:col-span-2 space-y-8">
