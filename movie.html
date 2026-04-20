@@ -22,7 +22,7 @@
                         mono: ['"JetBrains Mono"', 'monospace'],
                     },
                     colors: {
-                        darkBg: '#050505', // Сделали фон еще глубже
+                        darkBg: '#050505',
                         lightBg: '#f4f4f5'
                     }
                 }
@@ -43,7 +43,6 @@
             --plyr-video-background: #000;
         }
         
-        /* Неоновое свечение для активных элементов */
         .neon-shadow:hover {
             box-shadow: 0 0 20px rgba(220, 38, 38, 0.4);
         }
@@ -78,7 +77,13 @@
     </nav>
 
     <section class="w-full max-w-screen-2xl mx-auto px-4 md:px-8 mt-10 relative z-10">
-       <div class="w-full mt-6 flex justify-between items-center border-b border-gray-300 dark:border-white/10 pb-4">
+        <div class="w-full aspect-video bg-black relative border border-gray-300 dark:border-white/10 overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] ring-1 ring-black/5 dark:ring-white/5 rounded-sm">
+            
+            <video id="player" playsinline controls></video>
+
+        </div>
+        
+        <div class="w-full mt-6 flex justify-between items-center border-b border-gray-300 dark:border-white/10 pb-4">
             <div class="font-mono text-xs text-red-600 dark:text-red-500 uppercase tracking-[0.3em] flex items-center gap-3">
                 <span class="w-2 h-2 rounded-full bg-red-600 animate-pulse shadow-[0_0_10px_rgba(220,38,38,1)]"></span>
                 Direct Encrypted Feed
@@ -90,7 +95,7 @@
                 <button onclick="setLanguage('RUS')" id="langRus" class="lang-btn px-4 py-1.5 border border-black/20 dark:border-white/20 text-gray-500 hover:text-black dark:hover:text-white transition-all duration-300">RUS</button>
             </div>
         </div>
-        </section>
+    </section>
 
     <section class="w-full max-w-screen-2xl mx-auto px-4 md:px-8 py-12 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 flex-grow relative z-10">
         
@@ -142,8 +147,7 @@
                 <span class="font-mono text-xs text-red-600 bg-red-600/10 px-2 py-1" id="commentCount">0 Entries</span>
             </div>
 
-            <div id="commentsList" class="flex-grow overflow-y-auto space-y-5 mb-6 pr-4 relative z-10 font-mono text-sm">
-                </div>
+            <div id="commentsList" class="flex-grow overflow-y-auto space-y-5 mb-6 pr-4 relative z-10 font-mono text-sm"></div>
 
             <div class="mt-auto pt-4 border-t border-gray-300 dark:border-white/10 relative z-10">
                 <textarea id="commentInput" class="w-full bg-gray-100 dark:bg-[#111] border border-gray-300 dark:border-white/20 p-4 text-xs md:text-sm font-mono focus:outline-none focus:border-red-600 focus:ring-1 focus:ring-red-600/50 transition-all text-black dark:text-white resize-none" rows="3" placeholder="> Enter manual log override..."></textarea>
@@ -159,14 +163,16 @@
     <script src="https://cdn.plyr.io/3.7.8/plyr.js"></script>
 
     <script>
-      // --- ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКА (Прямые ссылки R2) ---
+        // --- 1. ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКА И ИНИЦИАЛИЗАЦИЯ ---
         const URL_ENG = "https://pub-c91a094a22e14675a43a150bd9109e2d.r2.dev/Werden%20Light.mp4";
-        const URL_RUS = "https://pub-c91a094a22e14675a43a150bd9109e2d.r2.dev/Werden%20Light.mp4"; // Пока ставлю эту же ссылку
+        const URL_RUS = "https://pub-c91a094a22e14675a43a150bd9109e2d.r2.dev/Werden%20Light.mp4"; 
 
-        // Инициализация плеера (если у тебя уже есть эта строчка, вторую не добавляй)
         const player = new Plyr('#player', {
             controls: ['play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'fullscreen']
         });
+
+        // ПРИНУДИТЕЛЬНЫЙ СТАРТ ВИДЕО (Без этого плеер был бы пустым)
+        player.source = { type: 'video', sources: [{ src: URL_ENG, type: 'video/mp4' }] };
 
         function setLanguage(lang) {
             const activeClasses = ['border-black', 'dark:border-white', 'bg-black', 'text-white', 'dark:bg-white', 'dark:text-black'];
@@ -208,9 +214,8 @@
         });
         updateIcons();
 
-        // --- 3. ЛОГИКА ОЦЕНОК (Лайки и Дизлайки) ---
-        const filmId = 'warden'; // Уникальный ID для БД браузера
-        
+        // --- 3. ЛОГИКА ОЦЕНОК ---
+        const filmId = 'warden';
         const likeBtn = document.getElementById('likeBtn');
         const likeIcon = document.getElementById('likeIcon');
         const likeCountText = document.getElementById('likeCountText');
@@ -280,7 +285,7 @@
         
         updateRatingUI();
 
-        // --- 4. ЛОГИКА ТЕРМИНАЛА (Комментарии) ---
+        // --- 4. ЛОГИКА ТЕРМИНАЛА ---
         const commentsList = document.getElementById('commentsList');
         const commentInput = document.getElementById('commentInput');
         const submitCommentBtn = document.getElementById('submitComment');
@@ -290,7 +295,6 @@
 
         function renderComments() {
             commentsList.innerHTML = '';
-            // Форматируем число с ведущими нулями для стиля
             commentCountText.innerText = `[ ${String(comments.length).padStart(3, '0')}_ENTRIES ]`;
             
             if (comments.length === 0) {
