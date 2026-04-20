@@ -155,7 +155,34 @@
     </section>
 
     <script>
-        // 1. ТЕМА
+       
+       // --- ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКА (YOUTUBE) ---
+        
+        // ВПИШИ СЮДА СВОИ ID ИЗ YOUTUBE (Например: dQw4w9WgXcQ)
+        const YT_ID_ENG = "ID_АНГЛИЙСКОЙ_ВЕРСИИ";
+        const YT_ID_RUS = "ID_РУССКОЙ_ВЕРСИИ";
+
+        const player = document.getElementById('mainPlayer');
+        const btnEng = document.getElementById('langEng');
+        const btnRus = document.getElementById('langRus');
+
+        function setLanguage(lang) {
+            if(lang === 'ENG') {
+                player.src = `https://www.youtube.com/embed/${YT_ID_ENG}?modestbranding=1&rel=0&color=white&iv_load_policy=3`;
+                
+                // Делаем кнопку ENG активной
+                btnEng.className = "px-3 py-1 border border-black dark:border-white bg-black text-white dark:bg-white dark:text-black transition-colors";
+                btnRus.className = "px-3 py-1 border border-black/20 dark:border-white/20 text-gray-500 hover:text-black dark:hover:text-white transition-colors";
+            } else {
+                player.src = `https://www.youtube.com/embed/${YT_ID_RUS}?modestbranding=1&rel=0&color=white&iv_load_policy=3`;
+                
+                // Делаем кнопку RUS активной
+                btnRus.className = "px-3 py-1 border border-black dark:border-white bg-black text-white dark:bg-white dark:text-black transition-colors";
+                btnEng.className = "px-3 py-1 border border-black/20 dark:border-white/20 text-gray-500 hover:text-black dark:hover:text-white transition-colors";
+            }
+        }
+       
+       // 1. ТЕМА
         const themeToggleBtn = document.getElementById('themeToggle');
         const htmlElement = document.documentElement;
         
@@ -322,28 +349,3 @@
     </script>
 </body>
 </html>
-// --- ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКА (YOUTUBE) ---
-        
-        // ВПИШИ СЮДА СВОИ ID ИЗ YOUTUBE (Например: dQw4w9WgXcQ)
-        const YT_ID_ENG = "ID_АНГЛИЙСКОЙ_ВЕРСИИ";
-        const YT_ID_RUS = "ID_РУССКОЙ_ВЕРСИИ";
-
-        const player = document.getElementById('mainPlayer');
-        const btnEng = document.getElementById('langEng');
-        const btnRus = document.getElementById('langRus');
-
-        function setLanguage(lang) {
-            if(lang === 'ENG') {
-                player.src = `https://www.youtube.com/embed/${YT_ID_ENG}?modestbranding=1&rel=0&color=white&iv_load_policy=3`;
-                
-                // Делаем кнопку ENG активной
-                btnEng.className = "px-3 py-1 border border-black dark:border-white bg-black text-white dark:bg-white dark:text-black transition-colors";
-                btnRus.className = "px-3 py-1 border border-black/20 dark:border-white/20 text-gray-500 hover:text-black dark:hover:text-white transition-colors";
-            } else {
-                player.src = `https://www.youtube.com/embed/${YT_ID_RUS}?modestbranding=1&rel=0&color=white&iv_load_policy=3`;
-                
-                // Делаем кнопку RUS активной
-                btnRus.className = "px-3 py-1 border border-black dark:border-white bg-black text-white dark:bg-white dark:text-black transition-colors";
-                btnEng.className = "px-3 py-1 border border-black/20 dark:border-white/20 text-gray-500 hover:text-black dark:hover:text-white transition-colors";
-            }
-        }
