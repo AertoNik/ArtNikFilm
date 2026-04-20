@@ -79,22 +79,13 @@
 
     <section class="w-full max-w-screen-2xl mx-auto px-4 md:px-8 mt-10 relative z-10">
         <div class="w-full aspect-video bg-black relative border border-gray-300 dark:border-white/10 overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] ring-1 ring-black/5 dark:ring-white/5 rounded-sm">
-            <div id="player" data-plyr-provider="youtube" data-plyr-embed-id="E4Z7UfMcjZo"></div>
-        </div>
-        
-        <div class="w-full mt-6 flex justify-between items-center border-b border-gray-300 dark:border-white/10 pb-4">
-            <div class="font-mono text-xs text-red-600 dark:text-red-500 uppercase tracking-[0.3em] flex items-center gap-3">
-                <span class="w-2 h-2 rounded-full bg-red-600 animate-pulse shadow-[0_0_10px_rgba(220,38,38,1)]"></span>
-                Encrypted Feed
-            </div>
             
-            <div class="flex items-center gap-3 font-mono text-xs tracking-widest">
-                <span class="text-gray-500 mr-2 uppercase">Audio_Track:</span>
-                <button onclick="setLanguage('ENG')" id="langEng" class="lang-btn active px-4 py-1.5 border border-black dark:border-white bg-black text-white dark:bg-white dark:text-black transition-all duration-300">ENG</button>
-                <button onclick="setLanguage('RUS')" id="langRus" class="lang-btn px-4 py-1.5 border border-black/20 dark:border-white/20 text-gray-500 hover:text-black dark:hover:text-white transition-all duration-300">RUS</button>
-            </div>
+            <video id="player" playsinline controls>
+                <source src="https://pub-c91a094a22e14675a43a150bd9109e2d.r2.dev/Werden%20Light.mp4" type="video/mp4" />
+            </video>
+
         </div>
-    </section>
+        </section>
 
     <section class="w-full max-w-screen-2xl mx-auto px-4 md:px-8 py-12 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 flex-grow relative z-10">
         
@@ -163,37 +154,36 @@
     <script src="https://cdn.plyr.io/3.7.8/plyr.js"></script>
 
     <script>
-        // --- 1. ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКА И ИНИЦИАЛИЗАЦИЯ ПЛЕЕРА ---
+       // --- ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКА (ПРЯМЫЕ MP4 ФАЙЛЫ) ---
         
-        // ВНИМАНИЕ: Я поставил один и тот же ID (E4Z7UfMcjZo) на обе кнопки, чтобы плеер НЕ КРАШИЛСЯ при тестах. 
-        // Когда у тебя будет русская версия, просто замени второй ID на нужный.
-        const YT_ID_ENG = "E4Z7UfMcjZo";
-        const YT_ID_RUS = "E4Z7UfMcjZo"; 
+        // Вставь прямые ссылки на твои .mp4 файлы
+        const URL_ENG = "https://pub-c91a094a22e14675a43a150bd9109e2d.r2.dev/Werden%20Light.mp4";
+        const URL_RUS = "ССЫЛКА_НА_РУССКУЮ_ВЕРСИЮ.mp4"; 
 
         document.documentElement.style.setProperty('--plyr-color-main', '#dc2626');
 
+        // Запускаем плеер для HTML5 Video
         const player = new Plyr('#player', {
-            controls: ['play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'fullscreen'],
-            youtube: { noCookie: true, rel: 0, showinfo: 0, iv_load_policy: 3, modestbranding: 1 }
+            controls: ['play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'fullscreen']
         });
 
         const btnEng = document.getElementById('langEng');
         const btnRus = document.getElementById('langRus');
 
         function setLanguage(lang) {
-            // Безопасное переключение классов без затирания Tailwind структуры
             const activeClasses = ['border-black', 'dark:border-white', 'bg-black', 'text-white', 'dark:bg-white', 'dark:text-black'];
             const inactiveClasses = ['border-black/20', 'dark:border-white/20', 'text-gray-500'];
 
             if(lang === 'ENG') {
-                player.source = { type: 'video', sources: [{ src: YT_ID_ENG, provider: 'youtube' }] };
+                // Подменяем источник видео на прямую ссылку
+                player.source = { type: 'video', sources: [{ src: URL_ENG, type: 'video/mp4' }] };
                 
                 btnEng.classList.add(...activeClasses);
                 btnEng.classList.remove(...inactiveClasses);
                 btnRus.classList.remove(...activeClasses);
                 btnRus.classList.add(...inactiveClasses);
             } else {
-                player.source = { type: 'video', sources: [{ src: YT_ID_RUS, provider: 'youtube' }] };
+                player.source = { type: 'video', sources: [{ src: URL_RUS, type: 'video/mp4' }] };
                 
                 btnRus.classList.add(...activeClasses);
                 btnRus.classList.remove(...inactiveClasses);
