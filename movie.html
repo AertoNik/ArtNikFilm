@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@300;400;600;700&display=swap" rel="stylesheet">
-    
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -68,15 +68,7 @@
     <section class="w-full max-w-screen-2xl mx-auto px-4 md:px-8 mt-8">
         <div class="w-full aspect-video bg-[#050505] relative border border-gray-300 dark:border-white/10 overflow-hidden shadow-2xl">
             
-            <iframe 
-                id="mainPlayer"
-                class="absolute top-0 left-0 w-full h-full"
-                src="https://www.youtube.com/embed/ID_АНГЛИЙСКОЙ_ВЕРСИИ?modestbranding=1&rel=0&color=white&iv_load_policy=3" 
-                title="The Warden" 
-                frameborder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                allowfullscreen>
-            </iframe>
+            <div id="player" data-plyr-provider="youtube" data-plyr-embed-id="ID_АНГЛИЙСКОЙ_ВЕРСИИ"></div>
 
         </div>
         
@@ -153,30 +145,36 @@
         </div>
 
     </section>
-
+<script src="https://cdn.plyr.io/3.7.8/plyr.js"></script>
     <script>
        
-       // --- ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКА (YOUTUBE) ---
+       // --- ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКА И ИНИЦИАЛИЗАЦИЯ PLYR ---
         
-        // ВПИШИ СЮДА СВОИ ID ИЗ YOUTUBE (Например: dQw4w9WgXcQ)
         const YT_ID_ENG = "ID_АНГЛИЙСКОЙ_ВЕРСИИ";
         const YT_ID_RUS = "ID_РУССКОЙ_ВЕРСИИ";
 
-        const player = document.getElementById('mainPlayer');
+        // Красим плеер в фирменный красный цвет ArtNikFilm
+        document.documentElement.style.setProperty('--plyr-color-main', '#dc2626');
+
+        // Запускаем премиум-плеер
+        const player = new Plyr('#player', {
+            controls: ['play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'fullscreen'],
+            youtube: { noCookie: true, rel: 0, showinfo: 0, iv_load_policy: 3, modestbranding: 1 }
+        });
+
         const btnEng = document.getElementById('langEng');
         const btnRus = document.getElementById('langRus');
 
         function setLanguage(lang) {
             if(lang === 'ENG') {
-                player.src = `https://www.youtube.com/embed/${YT_ID_ENG}?modestbranding=1&rel=0&color=white&iv_load_policy=3`;
+                // Команда для Plyr поменять видео
+                player.source = { type: 'video', sources: [{ src: YT_ID_ENG, provider: 'youtube' }] };
                 
-                // Делаем кнопку ENG активной
                 btnEng.className = "px-3 py-1 border border-black dark:border-white bg-black text-white dark:bg-white dark:text-black transition-colors";
                 btnRus.className = "px-3 py-1 border border-black/20 dark:border-white/20 text-gray-500 hover:text-black dark:hover:text-white transition-colors";
             } else {
-                player.src = `https://www.youtube.com/embed/${YT_ID_RUS}?modestbranding=1&rel=0&color=white&iv_load_policy=3`;
+                player.source = { type: 'video', sources: [{ src: YT_ID_RUS, provider: 'youtube' }] };
                 
-                // Делаем кнопку RUS активной
                 btnRus.className = "px-3 py-1 border border-black dark:border-white bg-black text-white dark:bg-white dark:text-black transition-colors";
                 btnEng.className = "px-3 py-1 border border-black/20 dark:border-white/20 text-gray-500 hover:text-black dark:hover:text-white transition-colors";
             }
