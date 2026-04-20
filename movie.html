@@ -66,18 +66,31 @@
     </nav>
 
     <section class="w-full max-w-screen-2xl mx-auto px-4 md:px-8 mt-8">
-        <div class="w-full aspect-video bg-black relative border border-gray-300 dark:border-white/10 overflow-hidden shadow-2xl">
+        <div class="w-full aspect-video bg-[#050505] relative border border-gray-300 dark:border-white/10 overflow-hidden shadow-2xl">
             
             <iframe 
+                id="mainPlayer"
                 class="absolute top-0 left-0 w-full h-full"
-                /* Вставь свой ID видео вместо слова ТВОЙ_ID_ВИДЕО */
-                src="https://www.youtube.com/embed/E4Z7UfMcjZo?modestbranding=1&rel=0&color=white&iv_load_policy=3" 
+                src="https://www.youtube.com/embed/ID_АНГЛИЙСКОЙ_ВЕРСИИ?modestbranding=1&rel=0&color=white&iv_load_policy=3" 
                 title="The Warden" 
                 frameborder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                 allowfullscreen>
             </iframe>
 
+        </div>
+        
+        <div class="w-full mt-4 flex justify-between items-center border-b border-gray-300 dark:border-white/10 pb-4">
+            <div class="font-mono text-xs text-gray-500 uppercase tracking-[0.2em] flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-red-600 animate-pulse"></span>
+                Secure Feed
+            </div>
+            
+            <div class="flex items-center gap-2 font-mono text-xs tracking-widest">
+                <span class="text-gray-500 mr-2 uppercase">Audio:</span>
+                <button onclick="setLanguage('ENG')" id="langEng" class="px-3 py-1 border border-black dark:border-white bg-black text-white dark:bg-white dark:text-black transition-colors">ENG</button>
+                <button onclick="setLanguage('RUS')" id="langRus" class="px-3 py-1 border border-black/20 dark:border-white/20 text-gray-500 hover:text-black dark:hover:text-white transition-colors">RUS</button>
+            </div>
         </div>
     </section>
     <section class="w-full max-w-screen-2xl mx-auto px-4 md:px-8 py-12 grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-24 flex-grow">
@@ -309,3 +322,28 @@
     </script>
 </body>
 </html>
+// --- ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКА (YOUTUBE) ---
+        
+        // ВПИШИ СЮДА СВОИ ID ИЗ YOUTUBE (Например: dQw4w9WgXcQ)
+        const YT_ID_ENG = "ID_АНГЛИЙСКОЙ_ВЕРСИИ";
+        const YT_ID_RUS = "ID_РУССКОЙ_ВЕРСИИ";
+
+        const player = document.getElementById('mainPlayer');
+        const btnEng = document.getElementById('langEng');
+        const btnRus = document.getElementById('langRus');
+
+        function setLanguage(lang) {
+            if(lang === 'ENG') {
+                player.src = `https://www.youtube.com/embed/${YT_ID_ENG}?modestbranding=1&rel=0&color=white&iv_load_policy=3`;
+                
+                // Делаем кнопку ENG активной
+                btnEng.className = "px-3 py-1 border border-black dark:border-white bg-black text-white dark:bg-white dark:text-black transition-colors";
+                btnRus.className = "px-3 py-1 border border-black/20 dark:border-white/20 text-gray-500 hover:text-black dark:hover:text-white transition-colors";
+            } else {
+                player.src = `https://www.youtube.com/embed/${YT_ID_RUS}?modestbranding=1&rel=0&color=white&iv_load_policy=3`;
+                
+                // Делаем кнопку RUS активной
+                btnRus.className = "px-3 py-1 border border-black dark:border-white bg-black text-white dark:bg-white dark:text-black transition-colors";
+                btnEng.className = "px-3 py-1 border border-black/20 dark:border-white/20 text-gray-500 hover:text-black dark:hover:text-white transition-colors";
+            }
+        }
