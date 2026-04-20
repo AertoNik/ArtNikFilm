@@ -3,12 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ArtNikFilm | Premium AI Cinema</title>
+    <title>The Warden | Premium AI Cinema</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -20,22 +22,30 @@
                         mono: ['"JetBrains Mono"', 'monospace'],
                     },
                     colors: {
-                        darkBg: '#0a0a0a',
-                        lightBg: '#f8f9fa'
+                        darkBg: '#050505', // Сделали фон еще глубже
+                        lightBg: '#f4f4f5'
                     }
                 }
             }
         }
     </script>
+    
     <style>
-        body { transition: background-color 0.5s ease, color 0.5s ease; }
+        body { transition: background-color 0.7s ease, color 0.7s ease; }
         ::selection { background-color: #dc2626; color: white; }
-        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
         
-        .rating-badge {
-            background: linear-gradient(90deg, #dc2626 0%, #991b1b 100%);
+        /* Кинематографичный цвет плеера */
+        :root {
+            --plyr-color-main: #dc2626;
+            --plyr-video-background: #000;
+        }
+        
+        /* Неоновое свечение для активных элементов */
+        .neon-shadow:hover {
+            box-shadow: 0 0 20px rgba(220, 38, 38, 0.4);
         }
     </style>
 
@@ -49,15 +59,17 @@
       });
     </script>
 </head>
-<body class="bg-lightBg text-black dark:bg-darkBg dark:text-white min-h-screen antialiased flex flex-col">
+<body class="bg-lightBg text-black dark:bg-darkBg dark:text-white min-h-screen antialiased flex flex-col relative">
 
-    <nav class="w-full px-8 py-5 flex justify-between items-center z-50 bg-lightBg dark:bg-darkBg border-b border-gray-200 dark:border-white/10 transition-colors duration-500">
-        <a href="index.html" class="text-2xl font-bold tracking-[0.2em] uppercase cursor-pointer hover:text-red-600 transition-colors">
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[80%] h-[600px] bg-red-900/10 dark:bg-red-900/20 blur-[120px] pointer-events-none z-0"></div>
+
+    <nav class="w-full px-8 py-5 flex justify-between items-center z-50 bg-lightBg/80 dark:bg-darkBg/80 backdrop-blur-lg border-b border-gray-200 dark:border-white/5 transition-colors duration-500 sticky top-0">
+        <a href="index.html" class="text-2xl font-black tracking-[0.2em] uppercase cursor-pointer hover:text-red-600 transition-colors">
             ArtNikFilm
         </a>
         
         <div class="hidden md:flex items-center space-x-10 text-sm tracking-widest uppercase font-semibold">
-            <a href="index.html" class="hover:text-red-600 transition-colors">Back to Catalog</a>
+            <a href="index.html" class="hover:text-red-600 transition-colors">Return to Base</a>
             <button id="themeToggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-white/10 transition-colors">
                 <svg id="moonIcon" class="hidden w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
                 <svg id="sunIcon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
@@ -65,98 +77,101 @@
         </div>
     </nav>
 
-    <section class="w-full max-w-screen-2xl mx-auto px-4 md:px-8 mt-8">
-        <div class="w-full aspect-video bg-[#050505] relative border border-gray-300 dark:border-white/10 overflow-hidden shadow-2xl">
-            
+    <section class="w-full max-w-screen-2xl mx-auto px-4 md:px-8 mt-10 relative z-10">
+        <div class="w-full aspect-video bg-black relative border border-gray-300 dark:border-white/10 overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] ring-1 ring-black/5 dark:ring-white/5 rounded-sm">
             <div id="player" data-plyr-provider="youtube" data-plyr-embed-id="E4Z7UfMcjZo"></div>
-
         </div>
         
-        <div class="w-full mt-4 flex justify-between items-center border-b border-gray-300 dark:border-white/10 pb-4">
-            <div class="font-mono text-xs text-gray-500 uppercase tracking-[0.2em] flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-red-600 animate-pulse"></span>
-                Secure Feed
+        <div class="w-full mt-6 flex justify-between items-center border-b border-gray-300 dark:border-white/10 pb-4">
+            <div class="font-mono text-xs text-red-600 dark:text-red-500 uppercase tracking-[0.3em] flex items-center gap-3">
+                <span class="w-2 h-2 rounded-full bg-red-600 animate-pulse shadow-[0_0_10px_rgba(220,38,38,1)]"></span>
+                Encrypted Feed
             </div>
             
-            <div class="flex items-center gap-2 font-mono text-xs tracking-widest">
-                <span class="text-gray-500 mr-2 uppercase">Audio:</span>
-                <button onclick="setLanguage('ENG')" id="langEng" class="px-3 py-1 border border-black dark:border-white bg-black text-white dark:bg-white dark:text-black transition-colors">ENG</button>
-                <button onclick="setLanguage('RUS')" id="langRus" class="px-3 py-1 border border-black/20 dark:border-white/20 text-gray-500 hover:text-black dark:hover:text-white transition-colors">RUS</button>
+            <div class="flex items-center gap-3 font-mono text-xs tracking-widest">
+                <span class="text-gray-500 mr-2 uppercase">Audio_Track:</span>
+                <button onclick="setLanguage('ENG')" id="langEng" class="lang-btn active px-4 py-1.5 border border-black dark:border-white bg-black text-white dark:bg-white dark:text-black transition-all duration-300">ENG</button>
+                <button onclick="setLanguage('RUS')" id="langRus" class="lang-btn px-4 py-1.5 border border-black/20 dark:border-white/20 text-gray-500 hover:text-black dark:hover:text-white transition-all duration-300">RUS</button>
             </div>
         </div>
     </section>
-    <section class="w-full max-w-screen-2xl mx-auto px-4 md:px-8 py-12 grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-24 flex-grow">
+
+    <section class="w-full max-w-screen-2xl mx-auto px-4 md:px-8 py-12 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 flex-grow relative z-10">
         
-        <div class="lg:col-span-2 space-y-8">
+        <div class="lg:col-span-7 space-y-8">
             <div>
-                <div class="flex items-center gap-4 text-xs font-mono tracking-[0.2em] text-red-600 uppercase mb-4">
-                    <span>Sci-Fi / Thriller</span>
-                    <span class="text-gray-500">•</span>
+                <div class="flex flex-wrap items-center gap-4 text-xs font-mono tracking-[0.2em] text-gray-500 uppercase mb-6">
+                    <span class="text-black dark:text-white bg-black/5 dark:bg-white/10 px-2 py-1">Sci-Fi / Thriller</span>
                     <span>File // 05:07</span>
-                    <span class="text-gray-500">•</span>
-                    <span>4K / Atmos</span>
+                    <span>AI_Rendered</span>
+                    <span class="text-red-600 font-bold border border-red-600/30 px-2 py-1">Classified</span>
                 </div>
-                <h1 class="text-5xl md:text-7xl font-black uppercase tracking-tighter mb-6 leading-none text-black dark:text-white">
+                <h1 class="text-5xl md:text-7xl font-black uppercase tracking-tighter mb-8 leading-[0.9] text-black dark:text-white">
                     The Warden
                 </h1>
-                <p class="text-gray-600 dark:text-gray-400 text-lg md:text-xl font-light leading-relaxed tracking-wide">
+                <p class="text-gray-700 dark:text-gray-300 text-lg md:text-xl font-light leading-relaxed tracking-wide">
                     A surveillance odyssey into the heart of an automated disciplinary sector. Experience the ultimate control through the eyes of the AI Warden. Control is an illusion, but the consequences are entirely real. What happens when the system watching you decides you are the anomaly?
                 </p>
             </div>
 
             <div class="flex items-center gap-4 pt-8 border-t border-gray-300 dark:border-white/10">
-                
-                <button id="likeBtn" class="group flex items-center gap-3 px-8 py-4 border border-black dark:border-white text-black dark:text-white hover:border-red-600 transition-all duration-300">
+                <button id="likeBtn" class="group flex items-center gap-3 px-8 py-4 border border-black/20 dark:border-white/20 text-gray-500 dark:text-gray-400 hover:border-red-600 hover:text-red-600 dark:hover:border-red-600 dark:hover:text-red-600 neon-shadow transition-all duration-300 rounded-sm bg-white/5 dark:bg-black/20 backdrop-blur-sm">
                     <svg id="likeIcon" class="w-6 h-6 transition-transform group-active:scale-75" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5"></path>
                     </svg>
-                    <span class="font-bold uppercase tracking-widest text-sm">
+                    <span class="font-bold uppercase tracking-widest text-sm text-black dark:text-white group-hover:text-red-600 transition-colors">
                         <span id="likeCountText">8500</span>
                     </span>
                 </button>
 
-                <button id="dislikeBtn" class="group flex items-center gap-3 px-6 py-4 border border-black/20 dark:border-white/20 text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white hover:border-black dark:hover:border-white transition-all duration-300">
+                <button id="dislikeBtn" class="group flex items-center gap-3 px-6 py-4 border border-black/20 dark:border-white/20 text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white hover:border-black dark:hover:border-white transition-all duration-300 rounded-sm bg-white/5 dark:bg-black/20 backdrop-blur-sm">
                     <svg id="dislikeIcon" class="w-6 h-6 transition-transform group-active:scale-75" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14H5.236a2 2 0 01-1.789-2.894l3.5-7A2 2 0 018.736 3h4.018a2 2 0 01.485.06l3.76.94m-7 10v5a2 2 0 002 2h.096c.5 0 .905-.405.905-.904 0-.715.211-1.413.608-2.008L17 13V4m-7 10h2m5-10h2a2 2 0 012 2v6a2 2 0 01-2 2h-2.5"></path>
                     </svg>
-                    <span class="font-bold uppercase tracking-widest text-sm">
+                    <span class="font-bold uppercase tracking-widest text-sm text-black dark:text-white group-hover:text-black dark:group-hover:text-white transition-colors">
                         <span id="dislikeCountText">124</span>
                     </span>
                 </button>
-
             </div>
         </div>
 
-        <div class="lg:col-span-1 bg-gray-200/50 dark:bg-[#111] border border-gray-300 dark:border-white/10 p-6 flex flex-col max-h-[600px]">
-            <div class="flex justify-between items-center mb-6 border-b border-gray-300 dark:border-white/10 pb-4">
-                <h3 class="text-xl font-bold uppercase tracking-widest">Logs / Comm</h3>
-                <span class="font-mono text-xs text-gray-500" id="commentCount">0 Entries</span>
+        <div class="lg:col-span-5 bg-white/40 dark:bg-[#0a0a0a]/60 backdrop-blur-xl border border-gray-300 dark:border-white/10 p-6 flex flex-col h-[600px] shadow-2xl relative overflow-hidden rounded-sm">
+            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-red-600 to-transparent opacity-50"></div>
+            
+            <div class="flex justify-between items-center mb-6 border-b border-gray-300 dark:border-white/10 pb-4 relative z-10">
+                <h3 class="text-lg font-bold uppercase tracking-[0.2em] flex items-center gap-2">
+                    <svg class="w-4 h-4 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M4 18h16a2 2 0 002-2V6a2 2 0 00-2-2H4a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                    System_Logs
+                </h3>
+                <span class="font-mono text-xs text-red-600 bg-red-600/10 px-2 py-1" id="commentCount">0 Entries</span>
             </div>
 
-            <div id="commentsList" class="flex-grow overflow-y-auto space-y-6 mb-6 pr-2">
+            <div id="commentsList" class="flex-grow overflow-y-auto space-y-5 mb-6 pr-4 relative z-10 font-mono text-sm">
                 </div>
 
-            <div class="mt-auto pt-4 border-t border-gray-300 dark:border-white/10">
-                <textarea id="commentInput" class="w-full bg-white dark:bg-[#0a0a0a] border border-gray-300 dark:border-white/20 p-4 text-sm font-mono focus:outline-none focus:border-red-600 dark:focus:border-red-600 transition-colors text-black dark:text-white resize-none" rows="3" placeholder="Enter log entry..."></textarea>
-                <button id="submitComment" class="mt-4 w-full bg-black text-white dark:bg-white dark:text-black py-3 font-bold uppercase tracking-widest text-sm hover:bg-red-600 hover:text-white dark:hover:bg-red-600 dark:hover:text-white transition-colors">
-                    Submit Entry
+            <div class="mt-auto pt-4 border-t border-gray-300 dark:border-white/10 relative z-10">
+                <textarea id="commentInput" class="w-full bg-gray-100 dark:bg-[#111] border border-gray-300 dark:border-white/20 p-4 text-xs md:text-sm font-mono focus:outline-none focus:border-red-600 focus:ring-1 focus:ring-red-600/50 transition-all text-black dark:text-white resize-none" rows="3" placeholder="> Enter manual log override..."></textarea>
+                <button id="submitComment" class="mt-4 w-full bg-black text-white dark:bg-white dark:text-black py-4 font-bold uppercase tracking-[0.2em] text-xs hover:bg-red-600 hover:text-white dark:hover:bg-red-600 dark:hover:text-white transition-colors flex justify-center items-center gap-2">
+                    Submit Data
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                 </button>
             </div>
         </div>
 
     </section>
-<script src="https://cdn.plyr.io/3.7.8/plyr.js"></script>
-    <script>
-       
-       // --- ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКА И ИНИЦИАЛИЗАЦИЯ PLYR ---
-        
-        const YT_ID_ENG = "E4Z7UfMcjZo";
-        const YT_ID_RUS = "ID_РУССКОЙ_ВЕРСИИ";
 
-        // Красим плеер в фирменный красный цвет ArtNikFilm
+    <script src="https://cdn.plyr.io/3.7.8/plyr.js"></script>
+
+    <script>
+        // --- 1. ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКА И ИНИЦИАЛИЗАЦИЯ ПЛЕЕРА ---
+        
+        // ВНИМАНИЕ: Я поставил один и тот же ID (E4Z7UfMcjZo) на обе кнопки, чтобы плеер НЕ КРАШИЛСЯ при тестах. 
+        // Когда у тебя будет русская версия, просто замени второй ID на нужный.
+        const YT_ID_ENG = "E4Z7UfMcjZo";
+        const YT_ID_RUS = "E4Z7UfMcjZo"; 
+
         document.documentElement.style.setProperty('--plyr-color-main', '#dc2626');
 
-        // Запускаем премиум-плеер
         const player = new Plyr('#player', {
             controls: ['play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'fullscreen'],
             youtube: { noCookie: true, rel: 0, showinfo: 0, iv_load_policy: 3, modestbranding: 1 }
@@ -166,21 +181,28 @@
         const btnRus = document.getElementById('langRus');
 
         function setLanguage(lang) {
+            // Безопасное переключение классов без затирания Tailwind структуры
+            const activeClasses = ['border-black', 'dark:border-white', 'bg-black', 'text-white', 'dark:bg-white', 'dark:text-black'];
+            const inactiveClasses = ['border-black/20', 'dark:border-white/20', 'text-gray-500'];
+
             if(lang === 'ENG') {
-                // Команда для Plyr поменять видео
                 player.source = { type: 'video', sources: [{ src: YT_ID_ENG, provider: 'youtube' }] };
                 
-                btnEng.className = "px-3 py-1 border border-black dark:border-white bg-black text-white dark:bg-white dark:text-black transition-colors";
-                btnRus.className = "px-3 py-1 border border-black/20 dark:border-white/20 text-gray-500 hover:text-black dark:hover:text-white transition-colors";
+                btnEng.classList.add(...activeClasses);
+                btnEng.classList.remove(...inactiveClasses);
+                btnRus.classList.remove(...activeClasses);
+                btnRus.classList.add(...inactiveClasses);
             } else {
                 player.source = { type: 'video', sources: [{ src: YT_ID_RUS, provider: 'youtube' }] };
                 
-                btnRus.className = "px-3 py-1 border border-black dark:border-white bg-black text-white dark:bg-white dark:text-black transition-colors";
-                btnEng.className = "px-3 py-1 border border-black/20 dark:border-white/20 text-gray-500 hover:text-black dark:hover:text-white transition-colors";
+                btnRus.classList.add(...activeClasses);
+                btnRus.classList.remove(...inactiveClasses);
+                btnEng.classList.remove(...activeClasses);
+                btnEng.classList.add(...inactiveClasses);
             }
         }
        
-       // 1. ТЕМА
+        // --- 2. ПЕРЕКЛЮЧЕНИЕ ТЕМЫ ---
         const themeToggleBtn = document.getElementById('themeToggle');
         const htmlElement = document.documentElement;
         
@@ -196,23 +218,18 @@
         });
         updateIcons();
 
-        // 2. ЛОГИКА ОЦЕНОК (Лайки и Дизлайки)
-        const filmId = 'warden';
+        // --- 3. ЛОГИКА ОЦЕНОК (Лайки и Дизлайки) ---
+        const filmId = 'warden'; // Уникальный ID для БД браузера
         
-        // Элементы Лайка
         const likeBtn = document.getElementById('likeBtn');
         const likeIcon = document.getElementById('likeIcon');
         const likeCountText = document.getElementById('likeCountText');
-        
-        // Элементы Дизлайка
         const dislikeBtn = document.getElementById('dislikeBtn');
         const dislikeIcon = document.getElementById('dislikeIcon');
         const dislikeCountText = document.getElementById('dislikeCountText');
         
-        // Загрузка состояний
         let currentLikes = parseInt(localStorage.getItem(`likes_${filmId}`)) || 8500;
         let isLiked = localStorage.getItem(`isLiked_${filmId}`) === 'true';
-
         let currentDislikes = parseInt(localStorage.getItem(`dislikes_${filmId}`)) || 124;
         let isDisliked = localStorage.getItem(`isDisliked_${filmId}`) === 'true';
 
@@ -220,18 +237,18 @@
             likeCountText.innerText = currentLikes;
             dislikeCountText.innerText = currentDislikes;
 
-            // Стилизация лайка
             if (isLiked) {
                 likeIcon.setAttribute('fill', 'currentColor');
                 likeIcon.classList.add('text-red-600');
                 likeBtn.classList.add('border-red-600');
+                likeBtn.classList.remove('border-black/20', 'dark:border-white/20');
             } else {
                 likeIcon.setAttribute('fill', 'none');
                 likeIcon.classList.remove('text-red-600');
                 likeBtn.classList.remove('border-red-600');
+                likeBtn.classList.add('border-black/20', 'dark:border-white/20');
             }
 
-            // Стилизация дизлайка
             if (isDisliked) {
                 dislikeIcon.setAttribute('fill', 'currentColor');
                 dislikeBtn.classList.add('border-black', 'text-black', 'dark:border-white', 'dark:text-white');
@@ -253,43 +270,27 @@
 
         likeBtn.addEventListener('click', () => {
             if (isLiked) {
-                // Если уже лайкнуто - снимаем лайк
-                currentLikes--;
-                isLiked = false;
+                currentLikes--; isLiked = false;
             } else {
-                // Ставим лайк
-                currentLikes++;
-                isLiked = true;
-                // Если стоял дизлайк - убираем его
-                if (isDisliked) {
-                    currentDislikes--;
-                    isDisliked = false;
-                }
+                currentLikes++; isLiked = true;
+                if (isDisliked) { currentDislikes--; isDisliked = false; }
             }
             saveRatings();
         });
 
         dislikeBtn.addEventListener('click', () => {
             if (isDisliked) {
-                // Если уже дизлайкнуто - снимаем дизлайк
-                currentDislikes--;
-                isDisliked = false;
+                currentDislikes--; isDisliked = false;
             } else {
-                // Ставим дизлайк
-                currentDislikes++;
-                isDisliked = true;
-                // Если стоял лайк - убираем его
-                if (isLiked) {
-                    currentLikes--;
-                    isLiked = false;
-                }
+                currentDislikes++; isDisliked = true;
+                if (isLiked) { currentLikes--; isLiked = false; }
             }
             saveRatings();
         });
         
         updateRatingUI();
 
-        // 3. ЛОГИКА КОММЕНТАРИЕВ
+        // --- 4. ЛОГИКА ТЕРМИНАЛА (Комментарии) ---
         const commentsList = document.getElementById('commentsList');
         const commentInput = document.getElementById('commentInput');
         const submitCommentBtn = document.getElementById('submitComment');
@@ -299,23 +300,24 @@
 
         function renderComments() {
             commentsList.innerHTML = '';
-            commentCountText.innerText = `${comments.length} Entries`;
+            // Форматируем число с ведущими нулями для стиля
+            commentCountText.innerText = `[ ${String(comments.length).padStart(3, '0')}_ENTRIES ]`;
             
             if (comments.length === 0) {
-                commentsList.innerHTML = '<div class="text-gray-500 font-mono text-sm text-center mt-10">No logs found. Be the first to enter data.</div>';
+                commentsList.innerHTML = '<div class="text-gray-500 font-mono text-xs text-center mt-10 uppercase tracking-widest opacity-50">Database empty. Awaiting first input.</div>';
                 return;
             }
 
             comments.forEach(comment => {
                 const commentHTML = `
-                    <div class="border-l-2 border-red-600 pl-4 py-1">
-                        <div class="flex items-center gap-3 mb-2">
-                            <div class="w-6 h-6 bg-gray-300 dark:bg-gray-800 rounded-full"></div>
-                            <span class="font-bold text-sm tracking-wide uppercase">Guest_User</span>
-                            <span class="font-mono text-[10px] text-gray-500">${comment.date}</span>
+                    <div class="border-l border-red-600/50 pl-4 py-2 hover:bg-black/5 dark:hover:bg-white/5 transition-colors group">
+                        <div class="flex items-center gap-3 mb-1.5">
+                            <span class="w-1.5 h-1.5 bg-red-600 rounded-full group-hover:shadow-[0_0_8px_rgba(220,38,38,0.8)] transition-shadow"></span>
+                            <span class="font-bold text-xs tracking-widest uppercase text-black dark:text-white">Guest_Auth_01</span>
+                            <span class="font-mono text-[10px] text-gray-500 uppercase tracking-wider">${comment.date}</span>
                         </div>
-                        <p class="text-sm text-gray-700 dark:text-gray-300 font-mono leading-relaxed">
-                            ${comment.text}
+                        <p class="text-sm text-gray-700 dark:text-gray-400 font-mono leading-relaxed pl-4">
+                            > ${comment.text}
                         </p>
                     </div>
                 `;
@@ -327,7 +329,7 @@
         submitCommentBtn.addEventListener('click', () => {
             const text = commentInput.value.trim();
             if (text !== '') {
-                const newDate = new Date().toLocaleTimeString('en-US', { hour12: false, hour: "numeric", minute: "numeric" });
+                const newDate = new Date().toLocaleTimeString('en-US', { hour12: false, hour: "2-digit", minute: "2-digit", second: "2-digit" }) + ' SYS_TIME';
                 comments.push({ text: text, date: newDate });
                 
                 localStorage.setItem(`comments_${filmId}`, JSON.stringify(comments));
